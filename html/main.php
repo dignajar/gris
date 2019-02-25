@@ -32,6 +32,13 @@ var _draft = true;
 var _slug = null;
 
 function editorInitialize(content) {
+	// Clean up the editor if already initialized
+	if (_editor) {
+		_editor.toTextArea();
+		_editor = null;
+	}
+
+	// Start a new editor
 	_editor = new EasyMDE({
 		autofocus: true,
 		toolbar: false,
@@ -42,15 +49,8 @@ function editorInitialize(content) {
 		autoDownloadFontAwesome: false
 	});
 
-	_content = parser.removeFirstLine(content);
-	_title = parser.title(content);
-
 	// Display editor buttons
 	$(".editor-button").show();
-
-	// Get the tags from the content
-	// When the content is setted the tags need to be setted
-	_tags = parser.tags(content);
 
 	// Editor event change
 	_editor.codemirror.on("change", function(){
@@ -75,9 +75,16 @@ function updatePage() {
 	var rawContent = editorGetContent();
 	var tags = parser.tags(rawContent);
 	var title = parser.title(rawContent);
-	var parsedContent = parser.removeFirstLine(rawContent);
 
-	// Update the page because was a change in the content
+	// Remove the first line from the content
+	// The first line supouse to be the title
+	var parsedContent = parser.removeFirstLine(rawContent);
+	// Remove tags from the content
+	parsedContent = parsedContent.replace(/#(\w+)\b/gi, '');
+	// Remove empty lines at the end
+	parsedContent = parsedContent.trim();
+
+	// Update the page
 	ajax.updatePage(_key, title, parsedContent, tags).then(function(key) {
 		_key = key;
 		showAlert("Saved");
@@ -99,7 +106,7 @@ function updatePage() {
 
 	// Check if there are new tags in the editor
 	// If there are new tags get the new tags for the sidebar
-	if (JSON.stringify(_tags) != JSON.stringify(tags)) {
+	if (_tags != tags) {
 		log('Tags changed', '');
 		_tags = tags;
 		displayTags();

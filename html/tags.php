@@ -121,10 +121,14 @@ function loadPage(pageKey) {
 
 		// Set the current key
 		_key = pageKey;
-
 		// Set slug
 		_slug = page.slug;
-
+		// Set title
+		_title = page.title;
+		// Set content
+		_content = page.contentRaw;
+		// Set tags
+		_tags = page.tags
 		// Set is draft or not
 		setDraft(page.type=="draft");
 
@@ -134,6 +138,7 @@ function loadPage(pageKey) {
 			content += "# "+page.title.trim()+"\n";
 		}
 		content += parser.decodeHtml(page.contentRaw);
+		content += "\n\n"+"#"+page.tags.replace(","," #");
 		editorInitialize(content);
 	});
 }
