@@ -81,7 +81,7 @@ var log = function(name, variable){
 		<?php include('html/tags.php'); ?>
 
 		<!-- RIGHT MAIN -->
-		<div class="editor-container col-lg-6 h-100" style="max-width: 600px;">
+		<div class="editor-container col-lg-6 p-3">
 		<?php include('html/main.php'); ?>
 		</div>
 	</div>

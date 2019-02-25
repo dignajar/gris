@@ -46,6 +46,9 @@ body.login {
 div.editor-container {
 	margin: 0 auto;
 	background: #fdfdfd;
+	max-width: 600px;
+	height: 100%;
+	overflow: auto;
 }
 
 #editor {
