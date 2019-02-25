@@ -1,9 +1,9 @@
 class Ajax {
 
-	constructor() {
-		this.apiURL = new URL('http://localhost:8000/api/');
-		this.token = "85bfaa4268d4127f713ab12d3f1629b0";
-		this.authentication = "5b4ec92a89ecc3679dd8a52bc01d78e0";
+	constructor(apiURL, apiToken, userAuth) {
+		this.apiURL = new URL(apiURL);
+		this.token = apiToken;
+		this.authentication = userAuth;
 	}
 
 	async getPage(key) {
@@ -12,6 +12,7 @@ class Ajax {
 			const response = await fetch(url, {
 				method: "GET"
 			});
+
 			const json = await response.json();
 			return json.data;
 		}

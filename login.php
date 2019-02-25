@@ -1,3 +1,4 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <!DOCTYPE html>
 <html>
 <head>

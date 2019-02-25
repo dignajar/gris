@@ -1,3 +1,4 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <div class="sidebar col-lg-2 p-0 pt-4">
 	<ul id="menu" class="list-group list-group-flush">
 		<li id="newPage" class="list-group-item"><i class="fa fa-edit"></i> New page</li>
@@ -132,7 +133,7 @@ function loadPage(pageKey) {
 		if (page.title.trim()) {
 			content += "# "+page.title.trim()+"\n";
 		}
-		content += page.contentRaw;
+		content += parser.decodeHtml(page.contentRaw);
 		editorInitialize(content);
 	});
 }

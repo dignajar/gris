@@ -1,3 +1,4 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <div id="toolbar" class="d-flex p-1">
 	<i class="align-self-center fa fa-terminal pr-1"></i>
 	<div id="message" class="mr-auto">Welcome to Bludit</div>

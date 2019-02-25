@@ -1,3 +1,4 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <?php
 
 class Bootstrap {

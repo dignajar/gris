@@ -1,3 +1,4 @@
+<?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,8 +51,16 @@
 	echo '</script>'.PHP_EOL;
 ?>
 
+<?php
+activatePlugin('pluginAPI');
+$apiURL = DOMAIN_BASE.'api/';
+$apiToken = $plugins['all']['pluginAPI']->getToken();
+$admin = new User($login->username());
+$authToken = $admin->tokenAuth();
+?>
+
 <script>
-var ajax = new Ajax();
+var ajax = new Ajax("<?php echo $apiURL ?>","<?php echo $apiToken ?>","<?php echo $authToken ?>");
 var parser = new Parser();
 var DEBUG = true;
 
