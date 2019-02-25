@@ -54,7 +54,8 @@
 <?php
 activatePlugin('pluginAPI');
 $apiURL = DOMAIN_BASE.'api/';
-$apiToken = $plugins['all']['pluginAPI']->getToken();
+$pluginAPI = getPlugin('pluginAPI');
+$apiToken = $pluginAPI->getToken();
 $admin = new User($login->username());
 $authToken = $admin->tokenAuth();
 ?>
