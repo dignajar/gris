@@ -172,18 +172,6 @@ function setPageType(type) {
 	});
 }
 
-function setPageSlug() {
-	var slug = prompt("Friendly URL:", _slug);
-	if (slug == null || slug == "") {
-		log("setPageSlug", "User cancel or empty slug.");
-	} else {
-		_slug = slug;
-		ajax.updatePageSlug(_key, _slug).then(function(key) {
-			_key = key;
-			showAlert("URL changed for "+_slug);
-		});
-	}
-}
 
 // MAIN
 $(document).ready(function() {
