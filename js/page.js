@@ -1,10 +1,6 @@
 class Page {
 
-	constructor(ajax) {
-		// Object Ajax
-		this.ajax = ajax;
-
-		// Variables for the page
+	constructor() {
 		this.slug = "";
 		this.key = "";
 	}
@@ -13,7 +9,7 @@ class Page {
 		var newSlug = prompt("Friendly URL:", this.slug);
 		if (newSlug.trim()) {
 			this.slug = newSlug;
-			this.ajax.updatePageSlug(this.key, this.slug).then(function(key) {
+			Ajax.updatePageSlug(this.key, this.slug).then(function(key) {
 				this.key = key;
 				showAlert("URL changed for " + this.slug);
 			});

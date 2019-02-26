@@ -6,7 +6,7 @@ class Ajax {
 		this.authentication = userAuth;
 	}
 
-	async getPage(key) {
+	static async getPage(key) {
 		let url = this.apiURL+"pages/"+key+"?token="+this.token;
 		try {
 			const response = await fetch(url, {
@@ -22,7 +22,7 @@ class Ajax {
 		}
 	}
 
-	async createPage() {
+	static async createPage() {
 		let url = this.apiURL+"pages";
 		try {
 			const response = await fetch(url, {
@@ -46,7 +46,7 @@ class Ajax {
 		}
 	}
 
-	updatePage(key, title, content, tags) {
+	static updatePage(key, title, content, tags) {
 		log('this.updatePage()', key);
 
 		let url = this.apiURL+"pages/"+key
@@ -78,7 +78,7 @@ class Ajax {
 
 	// Update the type of the page
 	// Returns the page key
-	updatePageType(key, type) {
+	static updatePageType(key, type) {
 		log('this.updatePageType()', key);
 
 		let url = this.apiURL+"pages/"+key
@@ -108,7 +108,7 @@ class Ajax {
 
 	// Update the slug of the page
 	// Returns the page key
-	updatePageSlug(key, slug) {
+	static updatePageSlug(key, slug) {
 		log('this.updatePageSlug(), key', key);
 		log('this.updatePageSlug(), slug', slug);
 
@@ -137,7 +137,7 @@ class Ajax {
 		});
 	}
 
-	deletePage(key) {
+	static deletePage(key) {
 		log('this.deletePage()', key);
 		let url = this.apiURL+"pages/"+key
 		return fetch(url, {
@@ -164,7 +164,7 @@ class Ajax {
 	}
 
 	// Returns the list of tags in the system
-	async getTags() {
+	static async getTags() {
 		let parameters = {
 			token: this.token
 		}
@@ -183,7 +183,7 @@ class Ajax {
 	}
 
 	// Returns the pages related to the tag
-	async getTag(key) {
+	static async getTag(key) {
 		let parameters = {
 			token: this.token
 		}
@@ -201,7 +201,7 @@ class Ajax {
 		}
 	}
 
-	async getPagesUntagged() {
+	static async getPagesUntagged() {
 		let parameters = {
 			token: this.token,
 			untagged: true,

@@ -3,7 +3,7 @@ class Parser {
 	// Ex.
 	// text = Hello this is a #test of #the function #worl
 	// returns (string) 'test','the','world'
-	tags(text) {
+	static tags(text) {
 		var rgx = /#(\w+)\b/gi;
 		var tag;
 		var tags = [];
@@ -18,7 +18,7 @@ class Parser {
 	// Only the first match
 	// text = # Hello World
 	// returns (string) "Hello World"
-	title(text) {
+	static title(text) {
 		var rgx = /# (.*)/;
 		let title = rgx.exec(text);
 		if (title) {
@@ -29,7 +29,7 @@ class Parser {
 
 	// Returns the text without the first line
 	// The first line is removed only if the first line has a # Headline1
-	removeFirstLine(text) {
+	static removeFirstLine(text) {
 		var lines = text.split("\n");
 		if (lines) {
 			// If the first line included # Headline1 then the line is removed
@@ -43,7 +43,7 @@ class Parser {
 	// Decode HTML
 	// Ex.
 	// &gt; convert to >
-	decodeHtml(html) {
+	static decodeHtml(html) {
 		var txt = document.createElement("textarea");
 		txt.innerHTML = html;
 		return txt.value;
