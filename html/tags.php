@@ -17,9 +17,9 @@ var _tagSelected = null;
 // Display all the tags in the system
 function displayTags() {
 	// Get all tags
-	ajax.getTags().then(function(tags) {
+	Ajax.getTags().then(function(tags) {
 		// Log
-		log('displayTags() => ajax.getTags => tags',tags);
+		log('displayTags() => Ajax.getTags => tags',tags);
 
 		// Init array for current tags
 		_currentTags = [];
@@ -60,7 +60,9 @@ $(document).ready(function() {
 
 	// Click on new page
 	$(document).on("click", "#newPage", function() {
-		createPage();
+		page.create();
+		editorInitialize('# Title \n');
+		uiSetDraft(true);
 	});
 
 	// Retrive and show the tags
@@ -92,14 +94,19 @@ function displayPages(pages) {
 
 // Display all pages related to the tag key
 // If the tagKey is empty display the pages untagged
-function displayPagesByTag(tagKey) {
+function displayPagesByTag(currentTag) {
+	var tagKey = currentTag;
+	if (currentTag===true) {
+		tagKey = _tagSelected;
+	}
+
 	if (tagKey.length > 0) {
-		ajax.getTag(tagKey).then(function(tag) {
+		Ajax.getTag(tagKey).then(function(tag) {
 			displayPages(tag.pages);
 		});
 
 	} else {
-		ajax.getPagesUntagged().then(function(pages) {
+		Ajax.getPagesUntagged().then(function(pages) {
 			displayPages(pages);
 		});
 	}
@@ -108,36 +115,21 @@ function displayPagesByTag(tagKey) {
 // Load the page selected to the editor
 function loadPage(pageKey) {
 	// Check the current key if the same as the page is editing
-	if (_key == pageKey) {
+	if (page.key===pageKey) {
 		console.log("Page already loaded");
 		return true;
 	}
+
 	console.log("Loading page by key: "+pageKey);
 
-	// Get the page
-	ajax.getPage(pageKey).then(function(page) {
-		// Log
-		log('loadPage() => ajax.getPage => page',page);
+	page.load(pageKey).then(function(result) {
+		uiSetDraft(page.type==="draft");
 
-		// Set the current key
-		_key = pageKey;
-		// Set slug
-		_slug = page.slug;
-		// Set title
-		_title = page.title;
-		// Set content
-		_content = page.contentRaw;
-		// Set tags
-		_tags = page.tags
-		// Set is draft or not
-		setDraft(page.type=="draft");
-
-		// Load content in the editor
 		let content = "";
 		if (page.title.trim()) {
 			content += "# "+page.title.trim()+"\n";
 		}
-		content += parser.decodeHtml(page.contentRaw);
+		content += Parser.decodeHtml(page.content);
 		content += "\n\n"+"#"+page.tags.replace(","," #");
 		editorInitialize(content);
 	});

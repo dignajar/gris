@@ -1,13 +1,7 @@
 class Ajax {
 
-	constructor(apiURL, apiToken, userAuth) {
-		this.apiURL = new URL(apiURL);
-		this.token = apiToken;
-		this.authentication = userAuth;
-	}
-
 	static async getPage(key) {
-		let url = this.apiURL+"pages/"+key+"?token="+this.token;
+		let url = _apiURL+"pages/"+key+"?token="+_apiToken;
 		try {
 			const response = await fetch(url, {
 				method: "GET"
@@ -23,14 +17,14 @@ class Ajax {
 	}
 
 	static async createPage() {
-		let url = this.apiURL+"pages";
+		let url = _apiURL+"pages";
 		try {
 			const response = await fetch(url, {
 				credentials: 'same-origin',
 				method: "POST",
 				body: JSON.stringify({
-					token: this.token,
-					authentication: this.authentication,
+					token: _apiToken,
+					authentication: _authToken,
 					type: "draft"
 				}),
 				headers: new Headers({
@@ -49,13 +43,13 @@ class Ajax {
 	static updatePage(key, title, content, tags) {
 		log('this.updatePage()', key);
 
-		let url = this.apiURL+"pages/"+key
+		let url = _apiURL+"pages/"+key
 		return fetch(url, {
 			credentials: 'same-origin',
 			method: "PUT",
 			body: JSON.stringify({
-				token: this.token,
-				authentication: this.authentication,
+				token: _apiToken,
+				authentication: _authToken,
 				title: title,
 				content: content,
 				tags: tags
@@ -81,13 +75,13 @@ class Ajax {
 	static updatePageType(key, type) {
 		log('this.updatePageType()', key);
 
-		let url = this.apiURL+"pages/"+key
+		let url = _apiURL+"pages/"+key
 		return fetch(url, {
 			credentials: 'same-origin',
 			method: "PUT",
 			body: JSON.stringify({
-				token: this.token,
-				authentication: this.authentication,
+				token: _apiToken,
+				authentication: _authToken,
 				type: type
 			}),
 			headers: new Headers({
@@ -112,13 +106,13 @@ class Ajax {
 		log('this.updatePageSlug(), key', key);
 		log('this.updatePageSlug(), slug', slug);
 
-		let url = this.apiURL+"pages/"+key
+		let url = _apiURL+"pages/"+key
 		return fetch(url, {
 			credentials: 'same-origin',
 			method: "PUT",
 			body: JSON.stringify({
-				token: this.token,
-				authentication: this.authentication,
+				token: _apiToken,
+				authentication: _authToken,
 				slug: slug
 			}),
 			headers: new Headers({
@@ -139,13 +133,13 @@ class Ajax {
 
 	static deletePage(key) {
 		log('this.deletePage()', key);
-		let url = this.apiURL+"pages/"+key
+		let url = _apiURL+"pages/"+key
 		return fetch(url, {
 			credentials: 'same-origin',
 			method: "DELETE",
 			body: JSON.stringify({
-				token: this.token,
-				authentication: this.authentication
+				token: _apiToken,
+				authentication: _authToken
 			}),
 			headers: new Headers({
 				'Content-Type': 'application/json'
@@ -166,9 +160,9 @@ class Ajax {
 	// Returns the list of tags in the system
 	static async getTags() {
 		let parameters = {
-			token: this.token
+			token: _apiToken
 		}
-		let url = this.apiURL+"tags?"+$.param(parameters);
+		let url = _apiURL+"tags?"+$.param(parameters);
 		try {
 			const response = await fetch(url, {
 				method: "GET"
@@ -185,9 +179,9 @@ class Ajax {
 	// Returns the pages related to the tag
 	static async getTag(key) {
 		let parameters = {
-			token: this.token
+			token: _apiToken
 		}
-		let url = this.apiURL+"tags/"+key+"?"+$.param(parameters);
+		let url = _apiURL+"tags/"+key+"?"+$.param(parameters);
 		try {
 			const response = await fetch(url, {
 				method: "GET"
@@ -203,14 +197,14 @@ class Ajax {
 
 	static async getPagesUntagged() {
 		let parameters = {
-			token: this.token,
+			token: _apiToken,
 			untagged: true,
 			published: true,
 			draft: true,
 			static: false,
 			scheduled: false
 		}
-		let url = this.apiURL+"pages?"+$.param(parameters);
+		let url = _apiURL+"pages?"+$.param(parameters);
 		try {
 			const response = await fetch(url, {
 				method: "GET"
@@ -224,4 +218,3 @@ class Ajax {
 		}
 	}
 }
-export default Ajax

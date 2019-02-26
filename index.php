@@ -39,8 +39,9 @@
 	echo Theme::jsBootstrap();
 	echo Theme::js(array(
 		'easymde.min.js',
-		'ajax.js',
-		'parser.js'
+		'Ajax.js',
+		'parser.js',
+		'page.js'
 	), DOMAIN_ADMIN_THEME_JS);
 ?>
 
@@ -52,17 +53,19 @@
 ?>
 
 <?php
-activatePlugin('pluginAPI');
-$apiURL = DOMAIN_BASE.'api/';
-$pluginAPI = getPlugin('pluginAPI');
-$apiToken = $pluginAPI->getToken();
-$admin = new User($login->username());
-$authToken = $admin->tokenAuth();
+	activatePlugin('pluginAPI');
+	$apiURL = DOMAIN_BASE.'api/';
+	$pluginAPI = getPlugin('pluginAPI');
+	$apiToken = $pluginAPI->getToken();
+	$admin = new User($login->username());
+	$authToken = $admin->tokenAuth();
 ?>
 
 <script>
-var ajax = new Ajax("<?php echo $apiURL ?>","<?php echo $apiToken ?>","<?php echo $authToken ?>");
-var parser = new Parser();
+_apiURL 	= "<?php echo $apiURL ?>";
+_apiToken 	= "<?php echo $apiToken ?>";
+_authToken 	= "<?php echo $authToken ?>";
+
 var page = new Page();
 
 var DEBUG = true;

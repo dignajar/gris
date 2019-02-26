@@ -33,10 +33,7 @@ var _slug = null;
 
 function editorInitialize(content) {
 	// Clean up the editor if already initialized
-	if (_editor) {
-		_editor.toTextArea();
-		_editor = null;
-	}
+	editorFinish();
 
 	// Start a new editor
 	_editor = new EasyMDE({
@@ -66,101 +63,40 @@ function editorInitialize(content) {
 	});
 }
 
+function editorFinish() {
+	if (_editor) {
+		_editor.toTextArea();
+		_editor = null;
+	}
+}
+
 function editorGetContent() {
 	return _editor.value();
 }
 
-function updatePage() {
-	log('Updating page...', '');
-	var rawContent = editorGetContent();
-	var tags = parser.tags(rawContent);
-	var title = parser.title(rawContent);
-
-	// Remove the first line from the content
-	// The first line supouse to be the title
-	var parsedContent = parser.removeFirstLine(rawContent);
-	// Remove tags from the content
-	parsedContent = parsedContent.replace(/#(\w+)\b/gi, '');
-	// Remove empty lines at the end
-	parsedContent = parsedContent.trim();
-
-	// Update the page
-	ajax.updatePage(_key, title, parsedContent, tags).then(function(key) {
-		_key = key;
-		showAlert("Saved");
-	});
-
-	// Check if the title was changed
-	if (_title != title) {
-		log('Title changed', '');
-		_title = title;
-		displayPagesByTag(_tagSelected);
-	}
-
-	// Check if the content was changed
-	if (_content != parsedContent) {
-		log('Content changed', '');
-		_content = parsedContent;
-		displayPagesByTag(_tagSelected);
-	}
-
-	// Check if there are new tags in the editor
-	// If there are new tags get the new tags for the sidebar
-	if (_tags != tags) {
-		log('Tags changed', '');
-		_tags = tags;
-		displayTags();
-	}
-}
-
-function createPage() {
-	// New pages is draft by default
-	setDraft(true);
-
-	let response = ajax.createPage();
-	response.then(function(key) {
-		_key = key;
-		editorInitialize('# Title \n');
-		// Log
-		log('createPage() => ajax.createPage => key',key);
-	});
-
-	showAlert("New page created");
-}
-
-function deletePage() {
-	ajax.deletePage(_key);
-	_key = null;
-
-	_editor.toTextArea();
-	_editor = null;
-
-	// Hide editor buttons
+function uiHideEditorButtons() {
 	$(".editor-button").hide();
 	$("#editor").hide();
-
-	showAlert("Page deleted");
 }
 
-// This function set the variable _draft and add the class to the button Draft
-function setDraft(value) {
+// UI Set draft button
+function uiSetDraft(value) {
 	if (value) {
-		_draft = true;
 		$("#draft-button").addClass("selected");
 	} else {
-		_draft = false;
 		$("#draft-button").removeClass("selected");
 	}
 }
-
 
 // MAIN
 $(document).ready(function() {
 	// Click on draft button
 	$(document).on("click", "#draft-button", function() {
-		if (_draft) {
-			setPageType("published");
+		if (page.type==="draft") {
+			uiSetDraft(false);
+			page.setType("published");
 		} else {
+			uiSetDraft(true);
 			setPageType("draft");
 		}
 	});
@@ -178,8 +114,9 @@ $(document).ready(function() {
 	// Click on delete button
 	$(document).on("click", "#delete-button", function() {
 		if (confirm("Are you sure delete the current page ?")) {
-			// Delete the current page
-			deletePage();
+			editorFinish();
+			uiHideEditorButtons();
+			page.delete();
 			// Retrive and show the tags
 			displayTags();
 		}
