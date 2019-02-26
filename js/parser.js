@@ -1,8 +1,8 @@
 class Parser {
-	// Returns an array with tags
-	// The tags are parser from hash-tags
-	// text = Hello this is a #test of #the function
-	// returns ['test', 'the']
+	// Returns an array with tags separated by comma
+	// Ex.
+	// text = Hello this is a #test of #the function #worl
+	// returns (string) 'test','the','world'
 	tags(text) {
 		var rgx = /#(\w+)\b/gi;
 		var tag;
@@ -15,9 +15,9 @@ class Parser {
 	}
 
 	// Returns all characters after the hash # and space
-	// Onlt the first match
+	// Only the first match
 	// text = # Hello World
-	// returns "Hello World"
+	// returns (string) "Hello World"
 	title(text) {
 		var rgx = /# (.*)/;
 		let title = rgx.exec(text);
@@ -40,6 +40,9 @@ class Parser {
 		return lines.join("\n");
 	}
 
+	// Decode HTML
+	// Ex.
+	// &gt; convert to >
 	decodeHtml(html) {
 		var txt = document.createElement("textarea");
 		txt.innerHTML = html;
