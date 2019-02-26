@@ -63,7 +63,7 @@ $authToken = $admin->tokenAuth();
 <script>
 var ajax = new Ajax("<?php echo $apiURL ?>","<?php echo $apiToken ?>","<?php echo $authToken ?>");
 var parser = new Parser();
-var page = new Page(ajax);
+var page = new Page();
 
 var DEBUG = true;
 var log = function(name, variable){

@@ -1,3 +1,5 @@
+import Ajax from 'ajax.js'
+
 class Page {
 
 	constructor() {
@@ -16,6 +18,25 @@ class Page {
 		} else {
 			log("class Page, setSlug()", "User cancel or empty slug.");
 		}
+	}
+
+	// This function save the page as draft or published
+	// If value is TRUE the page is saved as draft
+	// If value is FALSE the page is published
+	setType(type) {
+		let message = "";
+		if (type=="draft") {
+			setDraft(true);
+			message = "Page saved as draft";
+		} else {
+			setDraft(false);
+			message = "Page published";
+		}
+
+		ajax.updatePageType(_key, type).then(function(key) {
+			_key = key;
+			showAlert(message);
+		});
 	}
 
 }

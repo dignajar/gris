@@ -153,25 +153,6 @@ function setDraft(value) {
 	}
 }
 
-// This function save the page as draft or published
-// If value is TRUE the page is saved as draft
-// If value is FALSE the page is published
-function setPageType(type) {
-	let message = "";
-	if (type=="draft") {
-		setDraft(true);
-		message = "Page saved as draft";
-	} else {
-		setDraft(false);
-		message = "Page published";
-	}
-
-	ajax.updatePageType(_key, type).then(function(key) {
-		_key = key;
-		showAlert(message);
-	});
-}
-
 
 // MAIN
 $(document).ready(function() {
@@ -186,7 +167,12 @@ $(document).ready(function() {
 
 	// Click on url button
 	$(document).on("click", "#url-button", function() {
-		setPageSlug();
+		var newSlug = prompt("Friendly URL:", this.slug);
+		if (newSlug.trim()) {
+			page.setSlug(newSlug);
+		} else {
+			log("Event click #url-button", "User cancel or empty slug.");
+		}
 	});
 
 	// Click on delete button
