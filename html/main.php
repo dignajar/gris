@@ -150,7 +150,7 @@ $(document).ready(function() {
 				});
 			}
 		} else {
-			log("Event click #url-button", "User cancel or empty slug.");
+			console.log("Event click #url-button", "User cancel or empty slug.");
 		}
 	});
 

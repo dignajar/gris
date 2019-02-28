@@ -41,7 +41,7 @@ class Ajax {
 	}
 
 	static updatePage(key, title, content, tags) {
-		log('this.updatePage()', key);
+		console.log('this.updatePage() key: '+key);
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
@@ -73,7 +73,7 @@ class Ajax {
 	// Update the type of the page
 	// Returns the page key
 	static updatePageType(key, type) {
-		log('this.updatePageType()', key);
+		console.log('this.updatePageType() key: '+key);
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
@@ -103,8 +103,8 @@ class Ajax {
 	// Update the slug of the page
 	// Returns the page key
 	static updatePageSlug(key, slug) {
-		log('this.updatePageSlug(), key', key);
-		log('this.updatePageSlug(), slug', slug);
+		console.log('this.updatePageSlug(), key: '+key);
+		console.log('this.updatePageSlug(), slug: '+slug);
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
@@ -132,8 +132,8 @@ class Ajax {
 	}
 
 	static updatePageTitle(key, title) {
-		log('this.updatePageTitle(), key', key);
-		log('this.updatePageTitle(), title', title);
+		console.log('this.updatePageTitle(), key: '+key);
+		console.log('this.updatePageTitle(), title: '+title);
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
@@ -161,8 +161,8 @@ class Ajax {
 	}
 
 	static updatePageTags(key, tags) {
-		log('this.updatePageTags(), key', tags);
-		log('this.updatePageTags(), tags', tags);
+		console.log('this.updatePageTags(), key: '+tags);
+		console.log('this.updatePageTags(), tags: '+tags);
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
@@ -190,8 +190,7 @@ class Ajax {
 	}
 
 	static updatePageContent(key, content) {
-		log('this.updatePageContent(), key', content);
-		log('this.updatePageContent(), tags', content);
+		console.log('this.updatePageContent(), key: ', key);
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
@@ -219,7 +218,7 @@ class Ajax {
 	}
 
 	static deletePage(key) {
-		log('this.deletePage()', key);
+		console.log('this.deletePage() key: '+key);
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
 			credentials: 'same-origin',

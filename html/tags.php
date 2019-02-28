@@ -109,7 +109,7 @@ $(document).ready(function() {
 
 		// Get the page key clicked
 		var pageKey = $(this).data("key");
-		log('click li.pageItem => pageKey',pageKey);
+		console.log('click li.pageItem => pageKey: '+pageKey);
 
 		// Check the current key if the same as the page is editing
 		if (page.key===pageKey) {
