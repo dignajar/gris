@@ -6,49 +6,56 @@ class Page {
 		this.content = "";
 		this.title = "";
 		this.tags = "";
-		this.type = "draft";
+		this.type = "";
+	}
+
+	async create() {
+		let self = this;
+		await Ajax.createPage().then(function(key) {
+			console.log(key);
+			self.key = key;
+			self.type = "draft";
+		});
+	}
+
+	async delete() {
+		let self = this;
+		await Ajax.deletePage(this.key).then(function(key) {
+			self.key = "";
+		});
 	}
 
 	async load(key) {
 		let self = this;
 		await Ajax.getPage(key).then(function(data) {
-			self.slug = data.slug;
-			self.key = data.key;
-			self.title = data.title;
-			self.tags = data.tags;
-			self.type = data.type;
-			self.content = data.contentRaw;
+			self.slug 	= data.slug;
+			self.key 	= data.key;
+			self.title 	= data.title;
+			self.tags 	= data.tags;
+			self.type 	= data.type;
+			self.content 	= data.contentRaw;
 		});
 	}
 
-	setSlug(slug) {
+	async setSlug(slug) {
 		let self = this;
-		this.slug = slug;
-		Ajax.updatePageSlug(this.key, this.slug).then(function(key) {
+		Ajax.updatePageSlug(this.key, slug).then(function(key) {
 			self.key = key;
-			showAlert("URL changed for " + this.slug);
+			self.slug = slug;
 		});
 	}
 
-	// This function save the page as draft or published
-	// If value is TRUE the page is saved as draft
-	// If value is FALSE the page is published
-	setType(type) {
+	async setType(type) {
 		let self = this;
 		Ajax.updatePageType(this.key, type).then(function(key) {
 			self.key = key;
 			self.type = type;
-			if (self.type==="draft") {
-				showAlert("Page saved as draft");
-			} else {
-				showAlert("Page published");
-			}
 		});
 	}
 
 	async setTitle(title) {
 		let self = this;
-		await Ajax.updatePageTitle(this.key, title).then(function(key) {
+		Ajax.updatePageTitle(this.key, title).then(function(key) {
 			self.key = key;
 			self.title = title;
 		});
@@ -56,7 +63,7 @@ class Page {
 
 	async setTags(tags) {
 		let self = this;
-		await Ajax.updatePageTags(this.key, tags).then(function(key) {
+		Ajax.updatePageTags(this.key, tags).then(function(key) {
 			self.key = key;
 			self.tags = tags;
 		});
@@ -64,25 +71,10 @@ class Page {
 
 	async setContent(content) {
 		let self = this;
-		await Ajax.updatePageContent(this.key, content).then(function(key) {
+		Ajax.updatePageContent(this.key, content).then(function(key) {
 			self.key = key;
 			self.content = content;
 		});
-	}
-
-	create() {
-		let self = this;
-		Ajax.createPage().then(function(key) {
-			console.log(key);
-			self.key = key;
-			showAlert("New page created");
-		});
-	}
-
-	delete() {
-		Ajax.deletePage(this.key);
-		this.key = "";
-		showAlert("Page deleted");
 	}
 
 }

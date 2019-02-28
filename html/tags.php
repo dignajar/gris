@@ -16,19 +16,12 @@ var _tagSelected = null;
 
 // Display all the tags in the system
 function displayTags() {
-	// Get all tags
 	Ajax.getTags().then(function(tags) {
-		// Log
-		log('displayTags() => Ajax.getTags => tags',tags);
+		console.log('displayTags() => Ajax.getTags => tags: '+tags);
 
-		// Init array for current tags
 		_currentTags = [];
-
-		// Init <ul> element and include the untagged
-		$("#currentTags").html('<li class="tagItem list-group-item" data-key=""><i class="fa fa-star-o"></i> Untagged</li>');
-
+		$("#currentTags").html('<li class="tagItem list-group-item" data-key="__untagged"><i class="fa fa-star-o"></i> Untagged</li>');
 		if (tags.length > 0) {
-			// Add all tags to the <ul> element
 			tags.forEach(function(tag) {
 				_currentTags[tag.key] = tag.list;
 				$("#currentTags").append('<li class="tagItem list-group-item" data-key="'+tag.key+'"># '+tag.name+'</li>');
@@ -50,19 +43,19 @@ $(document).ready(function() {
 
 		// Get the tag key
 		_tagSelected = $(this).data("key");
-
-		// Log
-		log('click li.tagItem => tagKey',_tagSelected);
+		console.log('click li.tagItem => tagKey: '+_tagSelected);
 
 		// Show the pages related to the tag
-		displayPagesByTag(_tagSelected);
+		displayPagesByCurrentTag();
 	});
 
 	// Click on new page
 	$(document).on("click", "#newPage", function() {
-		page.create();
-		editorInitialize('# Title \n');
-		uiSetDraft(true);
+		page.create().then(function() {
+			editorInitialize('# Title \n');
+			uiSetDraft(true);
+			showAlert("New page created");
+		});
 	});
 
 	// Retrive and show the tags
@@ -93,46 +86,18 @@ function displayPages(pages) {
 }
 
 // Display all pages related to the tag key
-// If the tagKey is empty display the pages untagged
-function displayPagesByTag(currentTag) {
-	var tagKey = currentTag;
-	if (currentTag===true) {
-		tagKey = _tagSelected;
-	}
-
-	if (tagKey.length > 0) {
-		Ajax.getTag(tagKey).then(function(tag) {
-			displayPages(tag.pages);
-		});
-
-	} else {
+function displayPagesByCurrentTag() {
+	if (_tagSelected==="__untagged") {
 		Ajax.getPagesUntagged().then(function(pages) {
 			displayPages(pages);
 		});
-	}
-}
-
-// Load the page selected to the editor
-function loadPage(pageKey) {
-	// Check the current key if the same as the page is editing
-	if (page.key===pageKey) {
-		console.log("Page already loaded");
-		return true;
-	}
-
-	console.log("Loading page by key: "+pageKey);
-
-	page.load(pageKey).then(function(result) {
-		uiSetDraft(page.type==="draft");
-
-		let content = "";
-		if (page.title.trim()) {
-			content += "# "+page.title.trim()+"\n";
+	} else {
+		if (_tagSelected.length > 0) {
+			Ajax.getTag(_tagSelected).then(function(tag) {
+				displayPages(tag.pages);
+			});
 		}
-		content += Parser.decodeHtml(page.content);
-		content += "\n\n"+"#"+page.tags.replace(","," #");
-		editorInitialize(content);
-	});
+	}
 }
 
 $(document).ready(function() {
@@ -146,8 +111,32 @@ $(document).ready(function() {
 		var pageKey = $(this).data("key");
 		log('click li.pageItem => pageKey',pageKey);
 
-		// Retrive all titles of the pages and show
-		loadPage(pageKey);
+		// Check the current key if the same as the page is editing
+		if (page.key===pageKey) {
+			console.log("Page already loaded");
+			return true;
+		}
+
+		console.log("Loading page by key: "+pageKey);
+
+		page.load(pageKey).then(function(result) {
+			uiSetDraft(page.type==="draft");
+
+			let content = "";
+			if (page.title.trim()) {
+				content += "# "+page.title.trim()+"\n";
+			}
+
+			if (page.content.trim()) {
+				content += Parser.decodeHtml(page.content);
+			}
+
+			if (page.tags.trim()) {
+				content += "\n\n"+"#"+page.tags.replace(","," #");
+			}
+
+			editorInitialize(content);
+		});
 	});
 });
 </script>

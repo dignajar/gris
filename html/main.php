@@ -52,10 +52,9 @@ function editorInitialize(content) {
 	// Editor event change
 	_editor.codemirror.on("change", function(){
 		// Reset timer
-		if (_autosaveTimer != null) {
+		if (_autosaveTimer!=null) {
 			clearTimeout(_autosaveTimer);
 		}
-
 		// Activate timer
 		_autosaveTimer = setTimeout(function() {
 			var editorValue = _editor.value();
@@ -64,7 +63,7 @@ function editorInitialize(content) {
 			var title = Parser.title(editorValue);
 			if (page.title!==title) {
 				page.setTitle(title).then(function() {
-					//displayPagesByTag(true);
+					displayPagesByCurrentTag();
 					console.log("Title updated");
 				});
 			}
@@ -73,7 +72,7 @@ function editorInitialize(content) {
 			var tags = Parser.tags(editorValue);
 			if (page.tags!==tags) {
 				page.setTags(tags).then(function() {
-					//displayTags();
+					displayTags();
 					console.log("Tag updated");
 				});
 			}
@@ -87,7 +86,7 @@ function editorInitialize(content) {
 			cleanContent = cleanContent.trim();
 			if (page.content!==cleanContent) {
 				page.setContent(cleanContent).then(function() {
-					//displayPagesByTag(true);
+					displayPagesByCurrentTag(_tagSelected);
 					console.log("Content updated");
 				});
 			}
@@ -129,19 +128,27 @@ $(document).ready(function() {
 	// Click on draft button
 	$(document).on("click", "#draft-button", function() {
 		if (page.type==="draft") {
-			uiSetDraft(false);
-			page.setType("published");
+			page.setType("published").then(function() {
+				uiSetDraft(false);
+				showAlert("Page published");
+			});
 		} else {
-			uiSetDraft(true);
-			setPageType("draft");
+			page.setType("draft").then(function() {
+				uiSetDraft(true);
+				showAlert("Page saved as draft");
+			});
 		}
 	});
 
 	// Click on url button
 	$(document).on("click", "#url-button", function() {
-		var newSlug = prompt("Friendly URL:", this.slug);
-		if (newSlug.trim()) {
-			page.setSlug(newSlug);
+		var newSlug = prompt("Friendly URL:", page.slug);
+		if (newSlug) {
+			if (newSlug!==page.slug) {
+				page.setSlug(newSlug).then(function(){
+					showAlert("URL changed for " + newSlug);
+				});
+			}
 		} else {
 			log("Event click #url-button", "User cancel or empty slug.");
 		}
