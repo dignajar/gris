@@ -10,22 +10,22 @@ class Page {
 	}
 
 	async load(key) {
-		Ajax.getPage(key).then(function(data) {
-			this.slug = data.slug;
-			this.key = data.key;
-			this.title = data.title;
-			this.tags = data.tags;
-			this.type = data.type;
-			this.content = data.contentRaw;
-
-			return true;
+		let self = this;
+		await Ajax.getPage(key).then(function(data) {
+			self.slug = data.slug;
+			self.key = data.key;
+			self.title = data.title;
+			self.tags = data.tags;
+			self.type = data.type;
+			self.content = data.contentRaw;
 		});
 	}
 
 	setSlug(slug) {
+		let self = this;
 		this.slug = slug;
 		Ajax.updatePageSlug(this.key, this.slug).then(function(key) {
-			this.key = key;
+			self.key = key;
 			showAlert("URL changed for " + this.slug);
 		});
 	}
@@ -34,10 +34,11 @@ class Page {
 	// If value is TRUE the page is saved as draft
 	// If value is FALSE the page is published
 	setType(type) {
+		let self = this;
 		Ajax.updatePageType(this.key, type).then(function(key) {
-			this.key = key;
-			this.type = type;
-			if (this.type==="draft") {
+			self.key = key;
+			self.type = type;
+			if (self.type==="draft") {
 				showAlert("Page saved as draft");
 			} else {
 				showAlert("Page published");
@@ -45,51 +46,35 @@ class Page {
 		});
 	}
 
-	setContent(content) {
-		var tags = Parser.tags(content);
-		var title = Parser.title(content);
-
-		// Remove the first line from the content
-		// The first line supouse to be the title
-		var parsedContent = Parser.removeFirstLine(content);
-		// Remove tags from the content
-		parsedContent = parsedContent.replace(/#(\w+)\b/gi, '');
-		// Remove empty lines at the end
-		parsedContent = parsedContent.trim();
-
-		// Update the page
-		Ajax.updatePage(this.key, title, parsedContent, tags).then(function(key) {
-			this.key = key;
-			showAlert("Saved");
+	async setTitle(title) {
+		let self = this;
+		await Ajax.updatePageTitle(this.key, title).then(function(key) {
+			self.key = key;
+			self.title = title;
 		});
+	}
 
-		// Check if the title was changed
-		if (this.title != title) {
-			log('Title changed', '');
-			this.title = title;
-			displayPagesByTag(true);
-		}
+	async setTags(tags) {
+		let self = this;
+		await Ajax.updatePageTags(this.key, tags).then(function(key) {
+			self.key = key;
+			self.tags = tags;
+		});
+	}
 
-		// Check if the content was changed
-		if (this.content != parsedContent) {
-			log('Content changed', '');
-			this.content = parsedContent;
-			displayPagesByTag(true);
-		}
-
-		// Check if there are new tags in the editor
-		// If there are new tags get the new tags for the sidebar
-		if (this.tags != tags) {
-			log('Tags changed', '');
-			this.tags = tags;
-			displayTags();
-		}
+	async setContent(content) {
+		let self = this;
+		await Ajax.updatePageContent(this.key, content).then(function(key) {
+			self.key = key;
+			self.content = content;
+		});
 	}
 
 	create() {
+		let self = this;
 		Ajax.createPage().then(function(key) {
 			console.log(key);
-			this.key = key;
+			self.key = key;
 			showAlert("New page created");
 		});
 	}

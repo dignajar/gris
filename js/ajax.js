@@ -131,6 +131,93 @@ class Ajax {
 		});
 	}
 
+	static updatePageTitle(key, title) {
+		log('this.updatePageTitle(), key', key);
+		log('this.updatePageTitle(), title', title);
+
+		let url = _apiURL+"pages/"+key
+		return fetch(url, {
+			credentials: 'same-origin',
+			method: "PUT",
+			body: JSON.stringify({
+				token: _apiToken,
+				authentication: _authToken,
+				title: title
+			}),
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			}),
+		})
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			return json.data.key;
+		})
+		.catch(err => {
+			console.log(err);
+			return true;
+		});
+	}
+
+	static updatePageTags(key, tags) {
+		log('this.updatePageTags(), key', tags);
+		log('this.updatePageTags(), tags', tags);
+
+		let url = _apiURL+"pages/"+key
+		return fetch(url, {
+			credentials: 'same-origin',
+			method: "PUT",
+			body: JSON.stringify({
+				token: _apiToken,
+				authentication: _authToken,
+				tags: tags
+			}),
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			}),
+		})
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			return json.data.key;
+		})
+		.catch(err => {
+			console.log(err);
+			return true;
+		});
+	}
+
+	static updatePageContent(key, content) {
+		log('this.updatePageContent(), key', content);
+		log('this.updatePageContent(), tags', content);
+
+		let url = _apiURL+"pages/"+key
+		return fetch(url, {
+			credentials: 'same-origin',
+			method: "PUT",
+			body: JSON.stringify({
+				token: _apiToken,
+				authentication: _authToken,
+				content: content
+			}),
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			}),
+		})
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			return json.data.key;
+		})
+		.catch(err => {
+			console.log(err);
+			return true;
+		});
+	}
+
 	static deletePage(key) {
 		log('this.deletePage()', key);
 		let url = _apiURL+"pages/"+key

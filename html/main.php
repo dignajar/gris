@@ -47,7 +47,7 @@ function editorInitialize(content) {
 	});
 
 	// Display editor buttons
-	$(".editor-button").show();
+	uiShowEditorButtons();
 
 	// Editor event change
 	_editor.codemirror.on("change", function(){
@@ -58,7 +58,39 @@ function editorInitialize(content) {
 
 		// Activate timer
 		_autosaveTimer = setTimeout(function() {
-			updatePage();
+			var editorValue = _editor.value();
+
+			// Get title from the editor
+			var title = Parser.title(editorValue);
+			if (page.title!==title) {
+				page.setTitle(title).then(function() {
+					//displayPagesByTag(true);
+					console.log("Title updated");
+				});
+			}
+
+			// Get tags from the editor
+			var tags = Parser.tags(editorValue);
+			if (page.tags!==tags) {
+				page.setTags(tags).then(function() {
+					//displayTags();
+					console.log("Tag updated");
+				});
+			}
+
+			// Remove the first line from the content
+			// The first line supouse to be the title
+			var cleanContent = Parser.removeFirstLine(editorValue);
+			// Remove tags from the content
+			cleanContent = cleanContent.replace(/#(\w+)\b/gi, '');
+			// Remove empty lines at the end
+			cleanContent = cleanContent.trim();
+			if (page.content!==cleanContent) {
+				page.setContent(cleanContent).then(function() {
+					//displayPagesByTag(true);
+					console.log("Content updated");
+				});
+			}
 		}, _options["autosaveTimeout"]*1000);
 	});
 }
@@ -77,6 +109,10 @@ function editorGetContent() {
 function uiHideEditorButtons() {
 	$(".editor-button").hide();
 	$("#editor").hide();
+}
+
+function uiShowEditorButtons() {
+	$(".editor-button").show();
 }
 
 // UI Set draft button
