@@ -10,7 +10,6 @@
 	<title><?php echo $layout['title'] ?></title>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo DOMAIN_ADMIN_THEME.'img/favicon.png?version='.BLUDIT_VERSION ?>">
 
-	<!-- CSS -->
 	<?php
 		echo Theme::cssBootstrap();
 		echo Theme::css(array(
@@ -22,12 +21,10 @@
 		), DOMAIN_ADMIN_THEME_CSS);
 	?>
 
-	<!-- Plugins -->
 	<?php Theme::plugins('adminHead') ?>
 </head>
 <body>
 
-<!-- Plugins -->
 <?php Theme::plugins('adminBodyBegin') ?>
 
 <!-- Javascript -->
@@ -79,7 +76,6 @@
 	</div>
 </div>
 
-<!-- Plugins -->
 <?php Theme::plugins('adminBodyEnd') ?>
 
 </body>

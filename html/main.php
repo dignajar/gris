@@ -23,13 +23,7 @@ function showAlert(text) {
 <textarea id="editor"></textarea>
 <script>
 var _editor = null;
-var _key = null; // Current page key in the editor
-var _tags = []; // Current tags from the content
-var _title = "";
-var _content = ""; // Current content, this variable helps to know when the content was changed
 var _autosaveTimer = null; // Timer object for the autosave
-var _draft = true;
-var _slug = null;
 
 function editorInitialize(content) {
 	// Clean up the editor if already initialized

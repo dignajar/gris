@@ -1,6 +1,7 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <div class="sidebar col-lg-2 p-0 pt-4">
 	<ul id="menu" class="list-group list-group-flush">
+		<li id="website" class="list-group-item"><i class="fa fa-home"></i> <a target="_blank" href="<?php echo HTML_PATH_ROOT ?>">Website</a></li>
 		<li id="newPage" class="list-group-item"><i class="fa fa-edit"></i> New page</li>
 	</ul>
 	<ul id="currentTags" class="list-group list-group-flush pt-4">
