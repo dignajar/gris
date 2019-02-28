@@ -7,10 +7,7 @@
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="generator" content="Bludit">
 
-	<!-- Title -->
 	<title><?php echo $layout['title'] ?></title>
-
-	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo DOMAIN_ADMIN_THEME.'img/favicon.png?version='.BLUDIT_VERSION ?>">
 
 	<!-- CSS -->
@@ -39,7 +36,7 @@
 	echo Theme::jsBootstrap();
 	echo Theme::js(array(
 		'easymde.min.js',
-		'Ajax.js',
+		'ajax.js',
 		'parser.js',
 		'page.js'
 	), DOMAIN_ADMIN_THEME_JS);
@@ -62,20 +59,11 @@
 ?>
 
 <script>
-_apiURL 	= "<?php echo $apiURL ?>";
-_apiToken 	= "<?php echo $apiToken ?>";
-_authToken 	= "<?php echo $authToken ?>";
+	_apiURL 	= "<?php echo $apiURL ?>";
+	_apiToken 	= "<?php echo $apiToken ?>";
+	_authToken 	= "<?php echo $authToken ?>";
 
-var page = new Page();
-
-var DEBUG = true;
-var log = function(name, variable){
-	if (DEBUG) {
-		console.log(name);
-		console.log(variable);
-	}
-	return true;
-}
+	var page = new Page();
 </script>
 
 <div class="container-fluid h-100">
