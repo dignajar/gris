@@ -78,6 +78,15 @@ div.sidebar li.tagSelected {
 	color: #fff;
 }
 
+div.sidebar a {
+	color: #ccc;
+}
+
+div.sidebar a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
 /* PAGES */
 div.pages-list {
 	background: #f7f7f7;

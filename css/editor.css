@@ -5,3 +5,15 @@
 	background: #fdfdfd;
 	font-size: 14px;
 }
+
+.cm-s-easymde .cm-header-1 {
+	font-size: 180%;
+}
+
+.cm-s-easymde .cm-header-2 {
+	font-size: 140%;
+}
+
+.cm-header, .cm-strong {
+	font-weight: 600;
+}
