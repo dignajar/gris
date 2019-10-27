@@ -7,15 +7,22 @@ body {
 	overflow: hidden;
 	margin: 0px;
 	display: flex;
-	background: #303031;
-	color: #DFDFDF;
+	background: #fdfdfd;
+}
+
+/* LOGIN */
+body.login {
+	background: rgb(255,255,255);
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 53%);
+	height: 100%;
 }
 
 /* TOOLBAR */
 #toolbar {
 	font-size: 14px;
 	height: 30px;
-	border-bottom: 1px solid #444445;
+	border-bottom: 1px solid #f0f0f0;
+	text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
 }
 
 #toolbar .selected {
@@ -38,6 +45,7 @@ body {
 /* EDITOR */
 div.editor-container {
 	margin: 0 auto;
+	background: #fdfdfd;
 	max-width: 600px;
 	height: 100%;
 	overflow: auto;
@@ -49,12 +57,13 @@ div.editor-container {
 
 /* SIDEBAR */
 div.sidebar {
-	background: #1D1D1E;
+	background: rgb(34,37,38);
 	font-size: 0.9em;
 }
 
 div.sidebar li.list-group-item {
 	background: none;
+	color: #ccc;
 	border: none;
 	cursor: pointer;
 	padding: 5px 15px;
@@ -65,12 +74,12 @@ div.sidebar li.list-group-item:hover {
 }
 
 div.sidebar li.tagSelected {
-	background: #4F4F50;
+	background: #334E6A;
 	color: #fff;
 }
 
 div.sidebar a {
-	color: #DFDFDF;
+	color: #ccc;
 }
 
 div.sidebar a:hover {
@@ -79,19 +88,26 @@ div.sidebar a:hover {
 }
 
 /* PAGES */
+div.pages-list {
+	background: #f7f7f7;
+}
+
 #currentPages li.list-group-item {
-	background: #303031;
-	border-right: 4px solid #444445;
+	background: none;
+	color: #333;
+	border-right: 4px solid #f7f7f7;
 	cursor: pointer;
 }
 
 #currentPages li.list-group-item:hover {
-	border-right: 4px solid #0279FF;
+	color: #000;
+	border-right: 4px solid #5EA5DA;
 	background-color: #5ea5da24;
 }
 
 #currentPages li.pageSelected {
-	border-right: 4px solid #0279FF;
+	color: #000;
+	border-right: 4px solid #5EA5DA;
 	background-color: #5ea5da24;
 }
 
@@ -110,8 +126,8 @@ div.sidebar a:hover {
 }
 
 #currentPages div.pageItemData span.status {
-	background-color: #4F4F50;
-	color: #ccc;
+	background-color: #EFEFEF;
+	color: #000000;
 	padding: 2px 4px;
 	border-radius: 2px;
 	font-size: 0.9em;

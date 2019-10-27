@@ -25,7 +25,8 @@ class Ajax {
 				body: JSON.stringify({
 					token: _apiToken,
 					authentication: _authToken,
-					type: "draft"
+					type: "draft",
+					title: "Title"
 				}),
 				headers: new Headers({
 					'Content-Type': 'application/json'
@@ -161,7 +162,7 @@ class Ajax {
 	}
 
 	static updatePageTags(key, tags) {
-		console.log('this.updatePageTags(), key: '+tags);
+		console.log('this.updatePageTags(), key: '+key);
 		console.log('this.updatePageTags(), tags: '+tags);
 
 		let url = _apiURL+"pages/"+key
@@ -263,7 +264,7 @@ class Ajax {
 	}
 
 	// Returns the pages related to the tag
-	static async getTag(key) {
+	static async getPagesByTag(key) {
 		let parameters = {
 			token: _apiToken
 		}
@@ -288,7 +289,8 @@ class Ajax {
 			published: true,
 			draft: true,
 			static: false,
-			scheduled: false
+			scheduled: false,
+			numberOfItems: -1
 		}
 		let url = _apiURL+"pages?"+$.param(parameters);
 		try {

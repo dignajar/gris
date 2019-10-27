@@ -8,7 +8,7 @@
 	<meta name="generator" content="Bludit">
 
 	<title><?php echo $layout['title'] ?></title>
-	<link rel="shortcut icon" type="image/x-icon" href="<?php echo DOMAIN_ADMIN_THEME.'img/favicon.png?version='.BLUDIT_VERSION ?>">
+	<link rel="icon" type="image/x-icon" href="<?php echo HTML_PATH_CORE_IMG.'favicon.png?version='.BLUDIT_VERSION ?>">
 
 	<?php
 		echo Theme::cssBootstrap();
@@ -60,7 +60,7 @@
 	_apiToken 	= "<?php echo $apiToken ?>";
 	_authToken 	= "<?php echo $authToken ?>";
 
-	var page = new Page();
+	var _page = new Page();
 </script>
 
 <div class="container-fluid h-100">

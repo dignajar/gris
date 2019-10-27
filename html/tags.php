@@ -12,8 +12,8 @@
 // array[ (string) tagKey => (array) pagesKeys ]
 var _currentTags = [];
 
-// The tag key selected in the left menu
-var _tagSelected = null;
+// The tag key selected in the left menu, by default untagged
+var _tagSelected = "__untagged";
 
 // Display all the tags in the system
 function displayTags() {
@@ -50,21 +50,24 @@ $(document).ready(function() {
 		displayPagesByCurrentTag();
 	});
 
-	// Click on new page
+	// Click on "New page"
 	$(document).on("click", "#newPage", function() {
-		page.create().then(function() {
+		_page.create().then(function() {
 			editorInitialize('# Title \n');
-			uiSetDraft(true);
-			showAlert("New page created");
+			uiSetPrivate(true);
+			showMessage("New page created");
+			displayPagesByCurrentTag();
 		});
 	});
 
 	// Retrive and show the tags
 	displayTags();
+	// Retrive and show the pages untagged
+	displayPagesByCurrentTag();
 });
 </script>
 
-<div class="pages-list col-lg-2 p-0">
+<div class="pages-list col-lg-2 p-0 h-100 overflow-auto">
 	<ul id="currentPages" class="list-group list-group-flush">
 	</ul>
 </div>
@@ -82,22 +85,21 @@ function displayPages(pages) {
 	pages.forEach(function(page) {
 		_currentPages[page.key] = page;
 		// Add all pages to the <ul>
-		$("#currentPages").append('<li class="pageItem list-group-item" data-key="'+page.key+'"><div class="pageItemTitle">'+page.title+'</div><div class="pageItemContent">'+page.contentRaw.substring(0, 50)+'</div></li>');
+		$("#currentPages").append('<li class="pageItem list-group-item'+(_page.key===page.key?" pageSelected":"")+'" data-key="'+page.key+'"><div class="pageItemTitle">'+page.title+'</div><div class="pageItemContent">'+page.contentRaw.substring(0, 50)+'</div><div class="pageItemData"><span class="status">'+(page.type==="draft"?"Private":"Public")+'</span><span class="date">'+page.date+'</span></div></li>');
 	});
 }
 
 // Display all pages related to the tag key
 function displayPagesByCurrentTag() {
+	console.log('displayPagesByCurrentTag(), current tag selected: '+_tagSelected);
 	if (_tagSelected==="__untagged") {
 		Ajax.getPagesUntagged().then(function(pages) {
 			displayPages(pages);
 		});
-	} else {
-		if (_tagSelected.length > 0) {
-			Ajax.getTag(_tagSelected).then(function(tag) {
-				displayPages(tag.pages);
-			});
-		}
+	} else if (_tagSelected.length > 0) {
+		Ajax.getPagesByTag(_tagSelected).then(function(tag) {
+			displayPages(tag.pages);
+		});
 	}
 }
 
@@ -113,27 +115,27 @@ $(document).ready(function() {
 		console.log('click li.pageItem => pageKey: '+pageKey);
 
 		// Check the current key if the same as the page is editing
-		if (page.key===pageKey) {
+		if (_page.key===pageKey) {
 			console.log("Page already loaded");
 			return true;
 		}
 
 		console.log("Loading page by key: "+pageKey);
 
-		page.load(pageKey).then(function(result) {
-			uiSetDraft(page.type==="draft");
+		_page.load(pageKey).then(function(result) {
+			uiSetPrivate(_page.type==="draft");
 
 			let content = "";
-			if (page.title.trim()) {
-				content += "# "+page.title.trim()+"\n";
+			if (_page.title.trim()) {
+				content += "# "+_page.title.trim()+"\n";
 			}
 
-			if (page.content.trim()) {
-				content += Parser.decodeHtml(page.content);
+			if (_page.content.trim()) {
+				content += Parser.decodeHtml(_page.content);
 			}
 
-			if (page.tags.trim()) {
-				content += "\n\n"+"#"+page.tags.replace(","," #");
+			if (_page.tags.trim()) {
+				content += "\n\n"+"#"+_page.tags.replace(","," #");
 			}
 
 			editorInitialize(content);

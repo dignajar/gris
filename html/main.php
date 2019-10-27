@@ -1,29 +1,30 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
+
+<!-- Editor buttons -->
 <div id="toolbar" class="d-flex p-1">
 	<i class="align-self-center fa fa-terminal pr-1"></i>
 	<div id="message" class="mr-auto">Welcome to Bludit</div>
-	<div id="draft-button" class="editor-button pr-2 selected">Draft</div>
+	<div id="private-button" class="editor-button pr-2 selected">Private</div>
 	<div id="url-button" class="editor-button pr-2">URL</div>
 	<div id="delete-button" class="editor-button pr-2">Delete</div>
 </div>
 <script>
-var _options = {
-	'alertTimeout': 5, // Second in dissapear the alert
-	'autosaveTimeout': 1.5 // Second to activate before call the autosave
-};
+var _messageTimeout = 5; // Second for hide the message
 
-function showAlert(text) {
+function showMessage(text) {
 	$("#message").html(text).fadeIn();
 	setTimeout(function(){
 		$("#message").html("");
-	},_options['alertTimeout']*1000);
+	},_messageTimeout*1000);
 }
 </script>
 
+<!-- Editor -->
 <textarea id="editor"></textarea>
 <script>
 var _editor = null;
 var _autosaveTimer = null; // Timer object for the autosave
+var _autosaveTimeout = 1.5 // Second before call the autosave
 
 function editorInitialize(content) {
 	// Clean up the editor if already initialized
@@ -55,8 +56,8 @@ function editorInitialize(content) {
 
 			// Get title from the editor
 			var title = Parser.title(editorValue);
-			if (page.title!==title) {
-				page.setTitle(title).then(function() {
+			if (_page.title!==title) {
+				_page.setTitle(title).then(function() {
 					displayPagesByCurrentTag();
 					console.log("Title updated");
 				});
@@ -64,8 +65,8 @@ function editorInitialize(content) {
 
 			// Get tags from the editor
 			var tags = Parser.tags(editorValue);
-			if (page.tags!==tags) {
-				page.setTags(tags).then(function() {
+			if (_page.tags!==tags) {
+				_page.setTags(tags).then(function() {
 					displayTags();
 					console.log("Tag updated");
 				});
@@ -78,13 +79,13 @@ function editorInitialize(content) {
 			cleanContent = cleanContent.replace(/#(\w+)\b/gi, '');
 			// Remove empty lines at the end
 			cleanContent = cleanContent.trim();
-			if (page.content!==cleanContent) {
-				page.setContent(cleanContent).then(function() {
+			if (_page.content!==cleanContent) {
+				_page.setContent(cleanContent).then(function() {
 					displayPagesByCurrentTag(_tagSelected);
 					console.log("Content updated");
 				});
 			}
-		}, _options["autosaveTimeout"]*1000);
+		}, _autosaveTimeout*1000);
 	});
 }
 
@@ -108,39 +109,40 @@ function uiShowEditorButtons() {
 	$(".editor-button").show();
 }
 
-// UI Set draft button
-function uiSetDraft(value) {
+function uiSetPrivate(value) {
 	if (value) {
-		$("#draft-button").addClass("selected");
+		$("#private-button").addClass("selected");
+		$('li[data-key="'+_page.key+'"] > div.pageItemData > span.status').html("Private");
 	} else {
-		$("#draft-button").removeClass("selected");
+		$("#private-button").removeClass("selected");
+		$('li[data-key="'+_page.key+'"] > div.pageItemData > span.status').html("Public");
 	}
 }
 
 // MAIN
 $(document).ready(function() {
-	// Click on draft button
-	$(document).on("click", "#draft-button", function() {
-		if (page.type==="draft") {
-			page.setType("published").then(function() {
-				uiSetDraft(false);
-				showAlert("Page published");
+	// Click on private button
+	$(document).on("click", "#private-button", function() {
+		if (_page.type==="draft") {
+			_page.setType("published").then(function() {
+				uiSetPrivate(false);
+				showMessage("Page set as public");
 			});
 		} else {
-			page.setType("draft").then(function() {
-				uiSetDraft(true);
-				showAlert("Page saved as draft");
+			_page.setType("draft").then(function() {
+				uiSetPrivate(true);
+				showMessage("Page set as private");
 			});
 		}
 	});
 
 	// Click on url button
 	$(document).on("click", "#url-button", function() {
-		var newSlug = prompt("Friendly URL:", page.slug);
+		var newSlug = prompt("Friendly URL:", _page.slug);
 		if (newSlug) {
-			if (newSlug!==page.slug) {
-				page.setSlug(newSlug).then(function(){
-					showAlert("URL changed for " + newSlug);
+			if (newSlug!==_page.slug) {
+				_page.setSlug(newSlug).then(function(){
+					showMessage("URL changed for " + newSlug);
 				});
 			}
 		} else {
@@ -153,7 +155,7 @@ $(document).ready(function() {
 		if (confirm("Are you sure delete the current page ?")) {
 			editorFinish();
 			uiHideEditorButtons();
-			page.delete();
+			_page.delete();
 			// Retrive and show the tags
 			displayTags();
 		}
