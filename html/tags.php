@@ -134,9 +134,9 @@ $(document).ready(function() {
 				content += Parser.decodeHtml(_page.content);
 			}
 
-			if (_page.tags.trim()) {
-				content += "\n\n"+"#"+_page.tags.replace(","," #");
-			}
+			// if (_page.tags.trim()) {
+			// 	content += "\n\n"+"#"+_page.tags.replace(","," #");
+			// }
 
 			editorInitialize(content);
 		});

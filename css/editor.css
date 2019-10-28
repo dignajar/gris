@@ -18,3 +18,17 @@
 .cm-header, .cm-strong {
 	font-weight: 600;
 }
+
+.cm-s-easymde .cm-comment {
+	border-radius: 0;
+	background: none;
+	color: #DCBA73;
+}
+
+.cm-s-easymde .cm-quote {
+	color: #8ADEFF;
+}
+
+.cm-s-easymde .cm-header {
+	color: #ABCDA1;
+}

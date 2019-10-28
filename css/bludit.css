@@ -38,7 +38,6 @@ body {
 /* EDITOR */
 div.editor-container {
 	margin: 0 auto;
-	max-width: 600px;
 	height: 100%;
 	overflow: auto;
 }

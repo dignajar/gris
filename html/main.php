@@ -5,6 +5,7 @@
 	<i class="align-self-center fa fa-terminal pr-1"></i>
 	<div id="message" class="mr-auto">Welcome to Bludit</div>
 	<div id="private-button" class="editor-button pr-2 selected">Private</div>
+	<div id="tags-button" class="editor-button pr-2">Tags</div>
 	<div id="url-button" class="editor-button pr-2">URL</div>
 	<div id="delete-button" class="editor-button pr-2">Delete</div>
 </div>
@@ -59,29 +60,29 @@ function editorInitialize(content) {
 			if (_page.title!==title) {
 				_page.setTitle(title).then(function() {
 					displayPagesByCurrentTag();
-					console.log("Title updated");
+					console.log("Title updated: ",title);
 				});
 			}
 
 			// Get tags from the editor
-			var tags = Parser.tags(editorValue);
-			if (_page.tags!==tags) {
-				_page.setTags(tags).then(function() {
-					displayTags();
-					console.log("Tag updated");
-				});
-			}
+			// var tags = Parser.tags(editorValue);
+			// if (_page.tags!==tags) {
+			// 	_page.setTags(tags).then(function() {
+			// 		displayTags();
+			// 		console.log("Tags updated: ", tags);
+			// 	});
+			// }
 
 			// Remove the first line from the content
 			// The first line supouse to be the title
 			var cleanContent = Parser.removeFirstLine(editorValue);
 			// Remove tags from the content
-			cleanContent = cleanContent.replace(/#(\w+)\b/gi, '');
+			//cleanContent = cleanContent.replace(/#(\w+)\b/gi, '');
 			// Remove empty lines at the end
 			cleanContent = cleanContent.trim();
 			if (_page.content!==cleanContent) {
 				_page.setContent(cleanContent).then(function() {
-					displayPagesByCurrentTag(_tagSelected);
+					displayPagesByCurrentTag();
 					console.log("Content updated");
 				});
 			}
@@ -147,6 +148,21 @@ $(document).ready(function() {
 			}
 		} else {
 			console.log("Event click #url-button", "User cancel or empty slug.");
+		}
+	});
+
+	// Click on "tags" button
+	$(document).on("click", "#tags-button", function() {
+		var tags = prompt("Tags, please write tags separated by commas.", _page.tags);
+		if (tags) {
+			if (tags!==_page.tags) {
+				_page.setTags(tags).then(function() {
+					displayTags();
+					console.log("Tags updated: ", tags);
+				});
+			}
+		} else {
+			console.log("Event click #tags-button", "User cancel or empty tags.");
 		}
 	});
 
