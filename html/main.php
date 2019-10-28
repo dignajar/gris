@@ -154,15 +154,11 @@ $(document).ready(function() {
 	// Click on "tags" button
 	$(document).on("click", "#tags-button", function() {
 		var tags = prompt("Tags, please write tags separated by commas.", _page.tags);
-		if (tags) {
-			if (tags!==_page.tags) {
-				_page.setTags(tags).then(function() {
-					displayTags();
-					console.log("Tags updated: ", tags);
-				});
-			}
-		} else {
-			console.log("Event click #tags-button", "User cancel or empty tags.");
+		if (tags!==_page.tags) {
+			_page.setTags(tags).then(function() {
+				displayTags();
+				console.log("Tags updated: ", tags);
+			});
 		}
 	});
 
