@@ -7,6 +7,16 @@
 	font-size: 14px;
 }
 
+/* Prompt in the textarea */
+.CodeMirror div.CodeMirror-cursor {
+	border-left: 1px solid #DFDFDF;
+}
+
+/* Selected text on the editor */
+.CodeMirror .CodeMirror-selected {
+	background: #5ea5da24;
+}
+
 .cm-s-easymde .cm-header-1 {
 	font-size: 180%;
 }
