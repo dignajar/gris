@@ -2,8 +2,7 @@
 
 <!-- Editor buttons -->
 <div id="toolbar" class="d-flex p-1">
-	<i class="align-self-center fa fa-terminal pr-1"></i>
-	<div id="message" class="mr-auto">Welcome to Bludit</div>
+	<div id="message" class="mr-auto">Welcome to Gris</div>
 	<div id="private-button" class="editor-button pr-2 selected">Private</div>
 	<div id="tags-button" class="editor-button pr-2">Tags</div>
 	<div id="url-button" class="editor-button pr-2">URL</div>
@@ -25,7 +24,7 @@ function showMessage(text) {
 <script>
 var _editor = null;
 var _autosaveTimer = null; // Timer object for the autosave
-var _autosaveTimeout = 1.5 // Second before call the autosave
+var _autosaveTimeout = 1.5; // Second before call the autosave
 
 function editorInitialize(content) {
 	// Clean up the editor if already initialized

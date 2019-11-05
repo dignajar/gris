@@ -16,8 +16,7 @@
 			'bludit-bootstrap.css',
 			'easymde.min.css',
 			'editor.css',
-			'bludit.css',
-			'line-awesome/css/line-awesome-font-awesome.min.css'
+			'bludit.css'
 		), DOMAIN_ADMIN_THEME_CSS);
 	?>
 
@@ -62,6 +61,8 @@
 
 	var _page = new Page();
 </script>
+
+<?php include('html/settings.php'); ?>
 
 <div class="container-fluid h-100">
 	<!-- 25%/75% split on large devices, small, medium devices hide -->

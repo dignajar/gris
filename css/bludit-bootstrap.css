@@ -15,13 +15,13 @@ a:hover {
 }
 
 .btn-primary {
-	background-color: #4F93E0;
-	border-color: #4a90e2;
+	background-color: #4F4F50;
+	border-color: #48484a;
 }
 
 .btn-primary:hover {
-	background-color: #4585CF;
-	border-color: #4a90e2;
+	background-color: #48484a;
+	border-color: #48484a;
 }
 
 .btn-light {
@@ -42,6 +42,11 @@ a:hover {
 	color: #000;
 }
 
+.alert {
+	text-align: center;
+	font-size: 0.9em;
+}
+
 .alert-success {
 	background-color: #4586d4;
 	border-left: 6px solid #abd1ff !important;
@@ -50,6 +55,48 @@ a:hover {
 
 .alert-danger {
 	background-color: #d44545;
-	border-left: 6px solid #ff9c9c !important;
 	color: #ffffff;
+}
+
+.modal-content {
+	background: #303031;
+	color: #DFDFDF;
+}
+
+.close {
+	color: #DFDFDF;
+	text-shadow: none;
+	opacity: 1;
+}
+
+.modal-header {
+	border-bottom: 1px solid #444445;
+}
+
+.modal-lg {
+	max-width: 600px;
+}
+
+label.col-form-label {
+	font-size: 0.9em;
+}
+
+.custom-select,
+.form-control {
+	font-size: 1em;
+	background: #69696A;
+	color: #E8E8E8;
+	border-color: #444445;
+}
+
+.custom-select:focus,
+.form-control:focus {
+	border-color: #444445;
+	box-shadow: none;
+	background: #69696A;
+	color: #E8E8E8;
+}
+
+.form-control::placeholder {
+	color: #E8E8E8;
 }

@@ -2,7 +2,7 @@
 	border: none;
 	padding: 0;
 	height: 93%;
-	background: #303031;
+	background: #1E1E1E;
 	color: #DFDFDF;
 	font-size: 14px;
 }
@@ -40,5 +40,13 @@
 }
 
 .cm-s-easymde .cm-header {
+	color: #ABCDA1;
+}
+
+.cm-s-easymde .cm-attribute {
+	color: #ABCDA1;
+}
+
+.cm-s-easymde .cm-string {
 	color: #ABCDA1;
 }

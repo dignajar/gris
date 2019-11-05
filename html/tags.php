@@ -1,8 +1,9 @@
 <?php defined('BLUDIT') or die('Bludit CMS.'); ?>
 <div class="sidebar col-lg-2 p-0 pt-4">
 	<ul id="menu" class="list-group list-group-flush">
-		<li id="website" class="list-group-item"><i class="fa fa-home"></i> <a target="_blank" href="<?php echo HTML_PATH_ROOT ?>">Website</a></li>
-		<li id="newPage" class="list-group-item"><i class="fa fa-edit"></i> New page</li>
+		<li id="website" class="list-group-item"><a class="icon-website" target="_blank" href="<?php echo HTML_PATH_ROOT ?>">Website</a></li>
+		<li id="settings" class="list-group-item" data-toggle="modal" data-target="#settingsModal"><span class="icon-settings">Settings</span></li>
+		<li id="newPage" class="list-group-item"><span class="icon-plus">New page</span></li>
 	</ul>
 	<ul id="currentTags" class="list-group list-group-flush pt-4">
 	</ul>
@@ -21,11 +22,11 @@ function displayTags() {
 		console.log('displayTags() => Ajax.getTags => tags: '+tags);
 
 		_currentTags = [];
-		$("#currentTags").html('<li class="tagItem list-group-item" data-key="__untagged"><i class="fa fa-star-o"></i> Untagged</li>');
+		$("#currentTags").html('<li class="tagItem list-group-item" data-key="__untagged"><span class="icon-star">Untagged</span></li>');
 		if (tags.length > 0) {
 			tags.forEach(function(tag) {
 				_currentTags[tag.key] = tag.list;
-				$("#currentTags").append('<li class="tagItem list-group-item" data-key="'+tag.key+'"># '+tag.name+'</li>');
+				$("#currentTags").append('<li class="tagItem list-group-item" data-key="'+tag.key+'"><span class="icon-tag">'+tag.name+'</span></li>');
 			});
 		}
 

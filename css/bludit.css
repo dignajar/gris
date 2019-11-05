@@ -7,8 +7,44 @@ body {
 	overflow: hidden;
 	margin: 0px;
 	display: flex;
-	background: #303031;
+	background: #1E1E1E;
 	color: #DFDFDF;
+}
+
+/* ICONS */
+.icon-website:before {
+	content: url("../img/icons/website.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-settings:before {
+	content: url("../img/icons/settings.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-tag:before {
+	content: url("../img/icons/tag.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-star:before {
+	content: url("../img/icons/star.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-plus:before {
+	content: url("../img/icons/plus.svg");
+	width: 0.8em;
+	float: left;
+	margin-right: 5px;
 }
 
 /* TOOLBAR */
@@ -48,7 +84,7 @@ div.editor-container {
 
 /* SIDEBAR */
 div.sidebar {
-	background: #1D1D1E;
+	background: #252526;
 	font-size: 0.9em;
 }
 
@@ -79,7 +115,7 @@ div.sidebar a:hover {
 
 /* PAGES */
 #currentPages li.list-group-item {
-	background: #303031;
+	background: #1E1E1E;
 	border-right: 4px solid #444445;
 	cursor: pointer;
 }

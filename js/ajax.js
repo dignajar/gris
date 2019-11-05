@@ -20,7 +20,7 @@ class Ajax {
 		let url = _apiURL+"pages";
 		try {
 			const response = await fetch(url, {
-				credentials: 'same-origin',
+				credentials: "same-origin",
 				method: "POST",
 				body: JSON.stringify({
 					token: _apiToken,
@@ -29,7 +29,7 @@ class Ajax {
 					title: "Title"
 				}),
 				headers: new Headers({
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json"
 				}),
 			});
 			const json = await response.json();
@@ -46,7 +46,7 @@ class Ajax {
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "PUT",
 			body: JSON.stringify({
 				token: _apiToken,
@@ -56,7 +56,7 @@ class Ajax {
 				tags: tags
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -78,7 +78,7 @@ class Ajax {
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "PUT",
 			body: JSON.stringify({
 				token: _apiToken,
@@ -86,7 +86,7 @@ class Ajax {
 				type: type
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -109,7 +109,7 @@ class Ajax {
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "PUT",
 			body: JSON.stringify({
 				token: _apiToken,
@@ -117,7 +117,7 @@ class Ajax {
 				slug: slug
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -138,7 +138,7 @@ class Ajax {
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "PUT",
 			body: JSON.stringify({
 				token: _apiToken,
@@ -146,7 +146,7 @@ class Ajax {
 				title: title
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -167,7 +167,7 @@ class Ajax {
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "PUT",
 			body: JSON.stringify({
 				token: _apiToken,
@@ -175,7 +175,7 @@ class Ajax {
 				tags: tags
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -195,7 +195,7 @@ class Ajax {
 
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "PUT",
 			body: JSON.stringify({
 				token: _apiToken,
@@ -203,7 +203,7 @@ class Ajax {
 				content: content
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -222,14 +222,14 @@ class Ajax {
 		console.log('this.deletePage() key: '+key);
 		let url = _apiURL+"pages/"+key
 		return fetch(url, {
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			method: "DELETE",
 			body: JSON.stringify({
 				token: _apiToken,
 				authentication: _authToken
 			}),
 			headers: new Headers({
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json"
 			}),
 		})
 		.then(function(response) {
@@ -304,5 +304,32 @@ class Ajax {
 			console.log(err);
 			return true;
 		}
+	}
+
+	static updateSettings(form) {
+		console.log('Ajax.updateSettings()');
+		var tokens = {
+			token: _apiToken,
+			authentication: _authToken
+		};
+		let url = _apiURL+"settings";
+		return fetch(url, {
+			credentials: "same-origin",
+			method: "PUT",
+			body: JSON.stringify( $.extend(tokens, form) ),
+			headers: new Headers({
+				"Content-Type": "application/json"
+			}),
+		})
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+			return json.data;
+		})
+		.catch(err => {
+			console.log(err);
+			return true;
+		});
 	}
 }
