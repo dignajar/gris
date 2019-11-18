@@ -3,6 +3,7 @@
 <!-- Editor buttons -->
 <div id="toolbar" class="d-flex p-1">
 	<div id="message" class="mr-auto">Welcome to Gris</div>
+	<div id="view-button" class="editor-button pr-2">View</div>
 	<div id="private-button" class="editor-button pr-2 selected">Private</div>
 	<div id="tags-button" class="editor-button pr-2">Tags</div>
 	<div id="url-button" class="editor-button pr-2">URL</div>
@@ -121,6 +122,16 @@ function uiSetPrivate(value) {
 
 // MAIN
 $(document).ready(function() {
+
+	// Click on view button
+	$(document).on("click", "#view-button", function() {
+		if (_page.type=="draft") {
+			showMessage("This page is private you can not see in the website");
+		} else {
+			window.open(_page.permalink, "_blank");
+		}
+	});
+
 	// Click on private button
 	$(document).on("click", "#private-button", function() {
 		if (_page.type==="draft") {

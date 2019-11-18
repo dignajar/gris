@@ -12,3 +12,8 @@ activatePlugin('pluginRobots');
 activatePlugin('pluginRSS');
 activatePlugin('pluginSitemap');
 activatePlugin('pluginSitemap');
+
+// Configure site
+$site->set(array(
+	'itemsPerPage'=>2
+));

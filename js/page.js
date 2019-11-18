@@ -7,6 +7,7 @@ class Page {
 		this.title = "";
 		this.tags = "";
 		this.type = "";
+		this.permalink = "";
 	}
 
 	async create() {
@@ -33,6 +34,7 @@ class Page {
 			self.title 	= data.title;
 			self.tags 	= data.tags;
 			self.type 	= data.type;
+			self.permalink 	= data.permalink;
 			self.content 	= data.contentRaw;
 		});
 	}
