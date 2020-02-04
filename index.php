@@ -55,10 +55,15 @@
 ?>
 
 <script>
-	_apiURL 	= "<?php echo $apiURL ?>";
-	_apiToken 	= "<?php echo $apiToken ?>";
-	_authToken 	= "<?php echo $authToken ?>";
+	/*
+		Global variables 
+		all variables start with _ are global
+	*/
+	var _apiURL 	= "<?php echo $apiURL ?>";
+	var _apiToken 	= "<?php echo $apiToken ?>";
+	var _authToken 	= "<?php echo $authToken ?>";
 
+	// Current page loaded
 	var _page = new Page();
 </script>
 
@@ -68,7 +73,7 @@
 	<!-- 25%/75% split on large devices, small, medium devices hide -->
 	<div class="row h-100 d-flex">
 		<!-- LEFT SIDEBAR - Display only on large devices -->
-		<?php include('html/tags.php'); ?>
+		<?php include('html/sidebar.php'); ?>
 
 		<!-- RIGHT MAIN -->
 		<div class="editor-container col-lg-6 p-3">
