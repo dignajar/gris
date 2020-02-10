@@ -126,9 +126,9 @@ $(document).ready(function() {
 	// Click on view button
 	$(document).on("click", "#view-button", function() {
 		if (_page.type=="draft") {
-			showMessage("This page is private you can not see in the website");
+			showMessage("You need to publish first to render this page");
 		} else {
-			window.open(_page.permalink, "_blank");
+			window.open(_domainBase+_page.slug, "_blank");
 		}
 	});
 
@@ -164,11 +164,15 @@ $(document).ready(function() {
 	// Click on "tags" button
 	$(document).on("click", "#tags-button", function() {
 		var tags = prompt("Tags, please write tags separated by commas.", _page.tags);
-		if (tags!==_page.tags) {
-			_page.setTags(tags).then(function() {
-				displayTags();
-				console.log("Tags updated: ", tags);
-			});
+		if (tags) {
+			if (tags!==_page.tags) {
+				_page.setTags(tags).then(function() {
+					displayTags();
+					console.log("Tags updated: ", tags);
+				});
+			}
+		} else {
+			console.log("Event click #tags-button", "User cancel or empty tags.");
 		}
 	});
 

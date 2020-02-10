@@ -56,12 +56,13 @@
 
 <script>
 	/*
-		Global variables 
+		Global variables
 		all variables start with _ are global
 	*/
 	var _apiURL 	= "<?php echo $apiURL ?>";
 	var _apiToken 	= "<?php echo $apiToken ?>";
 	var _authToken 	= "<?php echo $authToken ?>";
+	var _domainBase = "<?php echo DOMAIN_BASE ?>";
 
 	// Current page loaded
 	var _page = new Page();
