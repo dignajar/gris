@@ -3,16 +3,11 @@
 <div id="settingsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="settingsModal" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Settings</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
+			<div class="modal-header text-center">Settings</div>
 			<div class="modal-body">
 				<form id="settingsForm">
 
-					<ul class="nav nav-tabs" id="settingsTab" role="tablist">
+					<ul class="nav nav-tabs justify-content-center mb-3" id="settingsTab" role="tablist">
 						<li class="nav-item">
 							<a id="general-tab" href="#general" aria-controls="general" class="nav-link active" data-toggle="tab" role="tab" aria-selected="true">General</a>
 						</li>
@@ -61,7 +56,6 @@
 									</select>
 								</div>
 							</div>
-
 						</div>
 					</div>
 
