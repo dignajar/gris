@@ -11,9 +11,11 @@ activatePlugin('pluginOpenGraph');
 activatePlugin('pluginRobots');
 activatePlugin('pluginRSS');
 activatePlugin('pluginSitemap');
-activatePlugin('pluginSitemap');
 
 // Configure site
 $site->set(array(
-	'itemsPerPage'=>2
+	'itemsPerPage'=>6
 ));
+
+// Configure Disqus
+$plugins['all']['pluginDisqus']->setField('shortname','<DISQUS_SHORTNAME>');
