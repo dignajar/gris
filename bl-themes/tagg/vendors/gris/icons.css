@@ -1,0 +1,34 @@
+.icon-website:before {
+	content: url("../font-awesome/website.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-settings:before {
+	content: url("../font-awesome/settings.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-tag:before {
+	content: url("../font-awesome/tag.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-star:before {
+	content: url("../font-awesome/star.svg");
+	width: 0.9em;
+	float: left;
+	margin-right: 5px;
+}
+
+.icon-plus:before {
+	content: url("../font-awesome/plus.svg");
+	width: 0.8em;
+	float: left;
+	margin-right: 5px;
+}
