@@ -1,4 +1,4 @@
-# Gris CMS
+# Gris Flat-File CMS
 Gris is a flat-file CMS dedicate for Developers and Markdown lovers.
 
 Gris use [Bludit](https://www.bludit.com) as a core, providing the same security and simplicity without need a database.
