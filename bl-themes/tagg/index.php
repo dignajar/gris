@@ -4,16 +4,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="generator" content="Bludit">
+	<meta name="generator" content="Gris-CMS">
 	<?php
 		echo Theme::metaTags('title');
 		echo Theme::metaTags('description');
-		echo Theme::favicon('vendors/gris/favicon.png');
+		echo Theme::favicon('vendors/tagg/favicon.png');
 
 		echo Theme::cssBootstrap();
 		echo Theme::css('vendors/highlight/style.min.css');
-		echo Theme::css('vendors/gris/gris-bootstrap.css');
-		echo Theme::css('vendors/gris/icons.css');
+		echo Theme::css('vendors/tagg/main.css');
+		echo Theme::css('vendors/tagg/icons.css');
 
 		Theme::plugins('siteHead');
 	?>
@@ -109,7 +109,7 @@
 			<?php else: ?>
 			<div><?php echo $site->description() ?></div>
 			<?php endif; ?>
-			<p class="mb-1"><?php echo $site->footer() ?>. Powered by <a href="https://www.bludit.com" target="_blank">Gris</a></p>
+			<p class="mb-1"><?php echo $site->footer() ?>. Powered by <a href="https://github.com/dignajar/gris" target="_blank">Gris CMS</a></p>
 		</footer>
 	</div>
 
@@ -117,8 +117,6 @@
 		Javascript libraries
 	-->
 	<?php
-		echo Theme::jquery();
-		echo Theme::jsBootstrap();
 		echo Theme::js('vendors/highlight/highlight.min.js');
 	?>
 	<script>hljs.initHighlightingOnLoad();</script>
