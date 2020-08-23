@@ -14,5 +14,8 @@ activatePlugin('pluginSitemap');
 
 // Configure site
 $site->set(array(
-	'itemsPerPage'=>2
+	'itemsPerPage'=>6
 ));
+
+// Configure Disqus
+$plugins['all']['pluginDisqus']->setField('shortname','');
