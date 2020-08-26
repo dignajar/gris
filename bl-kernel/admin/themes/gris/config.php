@@ -18,4 +18,4 @@ $site->set(array(
 ));
 
 // Configure Disqus
-$plugins['all']['pluginDisqus']->setField('shortname','');
+$plugins['all']['pluginDisqus']->setField('shortname','<DISQUS_SHORTNAME>');
